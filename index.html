@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>متين — جدول المستوى الثاني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f8ef; --card:#ffffff; --ink:#23352b; --muted:#6b7d72; --line:#e3ebe0;
+  --green:#7fb069; --green-d:#4f8a4b; --teal:#1f9bb0; --gold:#d9a441; --purple:#8a6bbf; --emerald:#2e7d5b; --red:#e2574c;
+  --tafsir:#5aa469; --hadith:#1f9bb0; --fiqh:#d9a441; --aqeedah:#8a6bbf; --quran:#2e7d5b; --pre:#e08a5a; --close:#d1668a;
+  --shadow:0 8px 24px rgba(52,89,63,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',system-ui,sans-serif;background:
+  radial-gradient(1200px 500px at 90% -10%,#dff0d3 0%,transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,#d6eef2 0%,transparent 55%),var(--bg);
+  color:var(--ink);line-height:1.7;min-height:100vh;padding-bottom:80px}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+
+/* header */
+.hero{margin:18px auto 0;max-width:980px;padding:0 16px}
+.hero-card{position:relative;overflow:hidden;border-radius:28px;padding:30px 28px;color:#fff;
+  background:linear-gradient(135deg,#4f8a4b 0%,#2f9a8a 55%,#1f9bb0 100%);box-shadow:0 14px 34px rgba(31,120,110,.28)}
+.hero-card::before,.hero-card::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero-card::before{width:260px;height:260px;left:-70px;top:-90px}
+.hero-card::after{width:180px;height:180px;right:30%;bottom:-100px}
+.bismillah{font-family:'Amiri',serif;font-size:20px;opacity:.9;text-align:center;margin-bottom:10px}
+.hero-main{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between;position:relative;z-index:1}
+.hero h1{font-size:30px;font-weight:800;line-height:1.3}
+.hero p{opacity:.92;font-size:16px;margin-top:4px}
+.ring{position:relative;width:120px;height:120px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .bgc{stroke:rgba(255,255,255,.25)}
+.ring .fg{stroke:#fff;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.ring .pct{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:800;font-size:26px;line-height:1.1}
+.ring .pct small{display:block;font-size:12px;font-weight:500;opacity:.9}
+.stats{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;position:relative;z-index:1}
+.chip{background:rgba(255,255,255,.18);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:8px 14px;font-size:14px;display:flex;gap:8px;align-items:center}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block;background:#fff}
+.chip b{font-weight:800}
+
+/* toolbar */
+.toolbar{position:sticky;top:0;z-index:20;margin-top:18px;padding:10px 0;background:linear-gradient(var(--bg) 70%,transparent)}
+.toolbar-in{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--card);border-radius:18px;padding:8px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.seg{display:flex;background:#eef4ea;border-radius:12px;padding:3px;gap:2px}
+.seg button,.tool{font-family:inherit;border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:10px;font-size:14px;font-weight:700;color:var(--muted);transition:.2s}
+.seg button.on{background:#fff;color:var(--green-d);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tool{background:#eef4ea;color:var(--green-d)}
+.tool:hover{background:#e0ecd9}
+.sp{flex:1}
+.tool.danger{color:var(--red);background:#fdeceb}
+
+/* legend */
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.lg{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700}
+.lg i{width:11px;height:11px;border-radius:50%}
+.lg span{color:var(--muted);font-weight:500}
+
+/* weeks */
+details.week{margin-top:18px;background:var(--card);border-radius:24px;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
+details.week>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#fff,#f6faf3)}
+details.week>summary::-webkit-details-marker{display:none}
+.wnum{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;flex:none;background:linear-gradient(135deg,var(--green),var(--teal))}
+.wtitle{flex:1;min-width:0}
+.wtitle h2{font-size:19px;font-weight:800}
+.wtitle p{font-size:13px;color:var(--muted)}
+.wprog{display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:110px}
+.wprog b{font-size:13px;color:var(--green-d)}
+.bar{width:110px;height:8px;border-radius:99px;background:#e6efe2;overflow:hidden}
+.bar>div{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--teal));width:0;transition:width .5s}
+.arrow{transition:.3s;color:var(--muted);font-size:18px}
+details[open]>summary .arrow{transform:rotate(180deg)}
+.days{padding:6px 16px 18px;display:grid;gap:12px}
+
+/* day */
+.day{--c:var(--tafsir);display:grid;grid-template-columns:92px 1fr;border-radius:18px;border:1px solid var(--line);background:#fcfefb;overflow:hidden;transition:.25s}
+.day.s-tafsir{--c:var(--tafsir)}.day.s-hadith{--c:var(--hadith)}.day.s-fiqh{--c:var(--fiqh)}
+.day.s-aqeedah{--c:var(--aqeedah)}.day.s-quran{--c:var(--quran)}.day.s-pre{--c:var(--pre)}.day.s-close{--c:var(--close)}
+.day:hover{box-shadow:0 6px 18px rgba(0,0,0,.07)}
+.dateblock{background:linear-gradient(160deg,var(--c),color-mix(in srgb,var(--c) 70%,#000));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px 6px;gap:0;line-height:1.35}
+.dateblock .wd{font-size:13px;font-weight:700;opacity:.95}
+.dateblock b{font-size:32px;font-weight:800;line-height:1.1}
+.dateblock .mo{font-size:13px;font-weight:700}
+.dateblock .hj{font-size:11px;opacity:.9;margin-top:4px;background:rgba(255,255,255,.2);padding:1px 8px;border-radius:99px}
+.tasks{padding:10px 12px;display:grid;gap:8px;align-content:center}
+.day.today{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 45%,transparent),0 10px 26px rgba(0,0,0,.12);transform:scale(1.005)}
+.today-badge{display:none}
+.day.today .today-badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;padding:0 8px;border-radius:99px;margin-top:6px;font-weight:800}
+.day.complete{background:#f1f9ee}
+.day.complete .dateblock{filter:saturate(.8) brightness(1.03)}
+
+.task{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:14px;background:#fff;border:1px solid var(--line);cursor:pointer;transition:.2s;user-select:none}
+.task:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 6%,#fff)}
+.task input{position:absolute;opacity:0;pointer-events:none}
+.box{width:26px;height:26px;border-radius:9px;border:2px solid #c6d4c2;display:grid;place-items:center;flex:none;transition:.2s;background:#fff}
+.box svg{width:16px;height:16px;stroke:#fff;stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .3s .05s}
+.task input:checked+.box{background:var(--c);border-color:var(--c);transform:scale(1.06)}
+.task input:checked+.box svg{stroke-dashoffset:0}
+.task input:focus-visible+.box{outline:3px solid color-mix(in srgb,var(--c) 40%,transparent);outline-offset:2px}
+.ico{font-size:20px;flex:none}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column}
+.txt strong{font-size:15.5px;font-weight:700;transition:.2s}
+.txt small{font-size:12.5px;color:var(--muted)}
+.tag{font-size:11.5px;font-weight:800;padding:2px 10px;border-radius:99px;flex:none;color:var(--c);background:color-mix(in srgb,var(--c) 13%,#fff)}
+.task.exam{background:#fff6f4;border-color:#f6d3cd}
+.task.exam .tag{color:var(--red);background:#fde3df}
+.task.exam:hover{border-color:var(--red);background:#fff0ed}
+.task.exam input:checked+.box{background:var(--red);border-color:var(--red)}
+.task.live .tag{color:#fff;background:var(--c)}
+.task.done{opacity:.62;background:#f6faf4}
+.task.done .txt strong{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:color-mix(in srgb,var(--c) 60%,transparent)}
+
+.off{display:flex;align-items:center;gap:10px;justify-content:center;padding:10px 14px;border-radius:14px;background:repeating-linear-gradient(135deg,#f0f6ec,#f0f6ec 10px,#eaf3e5 10px,#eaf3e5 20px);color:var(--green-d);font-weight:700;font-size:14px;border:1px dashed #bcd3b5}
+
+/* filters */
+body[data-f=todo] .task.done{display:none}
+body[data-f=todo] .day.complete{display:none}
+body[data-f=todo] .off{display:none}
+body[data-f=done] .task:not(.done){display:none}
+body[data-f=done] .day:not(.hasdone){display:none}
+body[data-f=done] .off{display:none}
+.empty{display:none;text-align:center;color:var(--muted);padding:40px 10px;font-weight:700}
+body.nothing .empty{display:block}
+
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:34px}
+footer b{color:var(--green-d)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:#23352b;color:#fff;padding:12px 22px;border-radius:16px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.45s cubic-bezier(.2,1.2,.3,1);z-index:50;max-width:90vw;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+
+@media(max-width:600px){
+  .hero h1{font-size:23px}
+  .day{grid-template-columns:70px 1fr}
+  .dateblock b{font-size:26px}
+  .wprog{min-width:78px}.bar{width:78px}
+  .tag{display:none}
+  .txt strong{font-size:14.5px}
+}
+</style>
+</head>
+<body data-f="all">
+
+<header class="hero">
+  <div class="hero-card">
+    <div class="bismillah">بسم الله الرحمن الرحيم</div>
+    <div class="hero-main">
+      <div>
+        <h1>برنامج متين العلمي — المستوى الثاني</h1>
+        <p>الجدول الزمني للمسار المسجّل · من 14 جماد أول إلى 25 جماد ثاني</p>
+      </div>
+      <div class="ring" aria-label="نسبة الإنجاز">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle class="bgc" cx="60" cy="60" r="52" fill="none" stroke-width="11"/>
+          <circle class="fg" id="ringfg" cx="60" cy="60" r="52" fill="none" stroke-width="11" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+        </svg>
+        <div class="pct"><div><span id="pct">0%</span><small id="cnt">0 / 0</small></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div class="toolbar-in">
+      <div class="seg" id="seg">
+        <button data-f="all" class="on">الكل</button>
+        <button data-f="todo">المتبقي</button>
+        <button data-f="done">المنجز</button>
+      </div>
+      <span class="sp"></span>
+      <button class="tool" id="goToday">📍 اليوم</button>
+      <button class="tool" id="toggleAll">↕ فتح/طيّ الكل</button>
+      <button class="tool danger" id="reset">إعادة ضبط</button>
+    </div>
+  </div>
+
+  <div class="legend" id="legend"></div>
+  <div id="app"></div>
+  <div class="empty">لا يوجد شيء هنا حاليًا ✨</div>
+
+  <footer>تقدّمك يُحفظ تلقائيًا على هذا الجهاز · <b>شركاء الخير</b> — المورد العذب ودوحة الفرقان وصناعة الرواحل</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- helpers to build data ---------- */
+const rec=(x)=>({t:'rec',x}), enr=(x,m)=>({t:'enr',x,m}), live=(x,m)=>({t:'live',x,m}), exam=(x,m)=>({t:'exam',x,m}), prep=(x,m)=>({t:'prep',x,m}), ev=(x,m)=>({t:'ev',x,m});
+const D=(date,wd,big,mo,h,tasks,s)=>({date,wd,big,mo,h,tasks,s});
+const OFF=(x)=>({off:true,x});
+const SUB={tafsir:'التفسير',hadith:'الحديث',fiqh:'الفقه',aqeedah:'العقيدة',quran:'القرآن',pre:'قبل الانطلاق',close:'الختام'};
+const LIVE10=live('لقاء القرآن المباشر','من 10:30 إلى 12 ظهرًا');
+
+const weeks=[
+{n:'1',title:'الأسبوع الأول',range:'الأحد 14 جماد أول (25 أكتوبر) – الخميس 18 جماد أول (29 أكتوبر)',s:'tafsir',days:[
+  D('2026-10-25','الأحد','25','أكتوبر','14 جماد أول',[LIVE10,rec('الدروس المسجلة 1 – 2'),enr('أهمية بناء المكوّن الإيماني لطالبة العلم','عبير')]),
+  D('2026-10-26','الإثنين','26','أكتوبر','15 جماد أول',[rec('الدروس المسجلة 3 – 4')]),
+  D('2026-10-27','الثلاثاء','27','أكتوبر','16 جماد أول',[rec('الدروس المسجلة 5 – 6'),enr('كيف تُبنى شخصية طالبة العلم (ج1)','عبير')]),
+  D('2026-10-28','الأربعاء','28','أكتوبر','17 جماد أول',[rec('الدروس المسجلة 7 – 8')]),
+  D('2026-10-29','الخميس','29','أكتوبر','18 جماد أول',[rec('الدروس المسجلة 9 – 10')]),
+  OFF('إجازة الجمعة والسبت — 19/20 جماد أول (30/31 أكتوبر)'),
+]},
+{n:'2',title:'الأسبوع الثاني',range:'الأحد 21 جماد أول (1 نوفمبر) – الخميس 25 جماد أول (5 نوفمبر)',s:'tafsir',days:[
+  D('2026-11-01','الأحد','1','نوفمبر','21 جماد أول',[LIVE10,rec('الدروس المسجلة 11 – 12 – 13'),enr('كيف تُبنى شخصية طالبة العلم (ج2)','عبير')]),
+  D('2026-11-02','الإثنين','2','نوفمبر','22 جماد أول',[exam('اختبار مادة التفسير')]),
+  D('2026-11-03','الثلاثاء','3','نوفمبر','23 جماد أول',[rec('الحديث · الدروس 1 – 2'),enr('مظاهر تعظيم القرآن في حياة طالبة العلم','الشيخ الدكتور الطاهر أحمد')],'hadith'),
+  D('2026-11-04','الأربعاء','4','نوفمبر','24 جماد أول',[rec('الحديث · الدروس 3 – 4')],'hadith'),
+  D('2026-11-05','الخميس','5','نوفمبر','25 جماد أول',[rec('الحديث · الدروس 5 – 6')],'hadith'),
+  OFF('إجازة الجمعة والسبت — 26/27 جماد أول (6/7 نوفمبر)'),
+]},
+{n:'3',title:'الأسبوع الثالث',range:'الأحد 28 جماد أول (8 نوفمبر) – الخميس 2 جماد ثاني (12 نوفمبر)',s:'hadith',days:[
+  D('2026-11-08','الأحد','8','نوفمبر','28 جماد أول',[LIVE10,rec('الحديث · الدروس 7 – 8'),enr('طالبة العلم والتسليم لله تعالى (شرعًا وقدرًا)','الشيخ الدكتور محمد العواجي')]),
+  D('2026-11-09','الإثنين','9','نوفمبر','29 جماد أول',[rec('الحديث · الدروس 9 – 10')]),
+  D('2026-11-10','الثلاثاء','10','نوفمبر','30 جماد أول',[rec('الحديث · الدروس 11 – 12'),enr('طالبة العلم وتحصيل الخشية','دكتورة روالا بدوي')]),
+  D('2026-11-11','الأربعاء','11','نوفمبر','1 جماد ثاني',[exam('اختبار مادة الحديث')]),
+  D('2026-11-12','الخميس','12','نوفمبر','2 جماد ثاني',[prep('الاستعداد لاختبار القرآن')],'quran'),
+  OFF('إجازة الجمعة والسبت — 3/4 جماد ثاني (13/14 نوفمبر)'),
+]},
+{n:'4',title:'الأسبوع الرابع',range:'الأحد 5 جماد ثاني (15 نوفمبر) – الخميس 9 جماد ثاني (19 نوفمبر)',s:'fiqh',days:[
+  D('2026-11-15','الأحد','15','نوفمبر','5 جماد ثاني',[exam('الاختبار الشفوي لسورة آل عمران','والتحريري للقرآن')],'quran'),
+  D('2026-11-16','الإثنين','16','نوفمبر','6 جماد ثاني',[rec('الفقه · الدروس 1 – 2'),enr('طالبة العلم ومعرفة دلائل صدق نبوة رسولنا الكريم ﷺ','دكتور هيثم طلعت')]),
+  D('2026-11-17','الثلاثاء','17','نوفمبر','7 جماد ثاني',[rec('الفقه · الدروس 3 – 4')]),
+  D('2026-11-18','الأربعاء','18','نوفمبر','8 جماد ثاني',[rec('الفقه · الدروس 5 – 6'),enr('طالبة العلم والاعتبار بأيام الله','عبير')]),
+  D('2026-11-19','الخميس','19','نوفمبر','9 جماد ثاني',[rec('الفقه · الدروس 7 – 8')]),
+  OFF('إجازة الجمعة والسبت — 10/11 جماد ثاني (20/21 نوفمبر)'),
+]},
+{n:'5',title:'الأسبوع الخامس',range:'الأحد 12 جماد ثاني (22 نوفمبر) – الخميس 16 جماد ثاني (26 نوفمبر)',s:'fiqh',days:[
+  D('2026-11-22','الأحد','22','نوفمبر','12 جماد ثاني',[rec('الفقه · الدروس 9 – 10'),enr('الاتجاه الشحروري والرد على شبهات ضد السنة','دكتور هيثم طلعت')]),
+  D('2026-11-23','الإثنين','23','نوفمبر','13 جماد ثاني',[rec('الفقه · الدروس 11 – 12')]),
+  D('2026-11-24','الثلاثاء','24','نوفمبر','14 جماد ثاني',[rec('الفقه · الدروس 13 – 14')]),
+  D('2026-11-25','الأربعاء','25','نوفمبر','15 جماد ثاني',[rec('الفقه · الدروس 15 – 16')]),
+  D('2026-11-26','الخميس','26','نوفمبر','16 جماد ثاني',[exam('اختبار مادة الفقه')]),
+  OFF('إجازة الجمعة والسبت — 17/18 جماد ثاني (27/28 نوفمبر)'),
+]},
+{n:'6',title:'الأسبوع السادس والأخير',range:'الأحد 19 جماد ثاني (29 نوفمبر) – السبت 25 جماد ثاني (5 ديسمبر)',s:'aqeedah',days:[
+  D('2026-11-29','الأحد','29','نوفمبر','19 جماد ثاني',[live('العقيدة · درس مباشر'),enr('طالبة العلم والانصباغ بالدين','الشيخ الدكتور محمد العواجي')]),
+  D('2026-11-30','الإثنين','30','نوفمبر','20 جماد ثاني',[live('العقيدة · درس مباشر')]),
+  D('2026-12-01','الثلاثاء','1','ديسمبر','21 جماد ثاني',[live('العقيدة · درس مباشر')]),
+  D('2026-12-02','الأربعاء','2','ديسمبر','22 جماد ثاني',[live('العقيدة · درس مباشر')]),
+  D('2026-12-03','الخميس','3','ديسمبر','23 جماد ثاني',[live('العقيدة · درس مباشر')]),
+  OFF('إجازة الجمعة — 24 جماد ثاني (4 ديسمبر)'),
+  D('2026-12-05','السبت','5','ديسمبر','25 جماد ثاني',[exam('اختبار مادة العقيدة')]),
+]},
+];
+
+const TYPE={rec:['🎬','مسجّل'],enr:['✨','إثرائية'],live:['🎙️','مباشر'],exam:['📝','اختبار'],prep:['📚','استعداد'],ev:['📌','موعد']};
+const KEY='mateen-l2-progress-v1';
+let done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}};
+const todayISO=new Date().toLocaleDateString('en-CA');
+
+/* ---------- registry & render ---------- */
+const reg=[]; // {id,s,w}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CHECK='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+let html='';
+weeks.forEach((w,wi)=>{
+  let inner='';
+  w.days.forEach(d=>{
+    if(d.off){inner+=`<div class="off">🌿 ${esc(d.x)}</div>`;return;}
+    const s=d.s||w.s;
+    let tasks='';
+    d.tasks.forEach((t,ti)=>{
+      const id=`${d.date}-${ti}`;
+      reg.push({id,s,w:wi});
+      const [ic,tag]=TYPE[t.t];
+      tasks+=`<label class="task ${t.t}" data-id="${id}"><input type="checkbox" data-id="${id}"><span class="box">${CHECK}</span><span class="ico">${ic}</span><span class="txt"><strong>${esc(t.x)}</strong>${t.m?`<small>${esc(t.m)}</small>`:''}</span><span class="tag">${tag}</span></label>`;
+    });
+    inner+=`<article class="day s-${s}" id="day-${d.date}" data-date="${d.date}" data-w="${wi}">
+      <div class="dateblock"><span class="wd">${d.wd}</span><b>${d.big}</b><span class="mo">${d.mo}</span><span class="hj">${d.h}</span><span class="today-badge">اليوم</span></div>
+      <div class="tasks">${tasks}</div></article>`;
+  });
+  html+=`<details class="week" data-w="${wi}"><summary>
+    <div class="wnum">${w.n}</div>
+    <div class="wtitle"><h2>${w.title}</h2><p>${w.range}</p></div>
+    <div class="wprog"><b class="wcount"></b><div class="bar"><div class="wbar"></div></div></div>
+    <span class="arrow">▾</span></summary><div class="days">${inner}</div></details>`;
+});
+const app=document.getElementById('app');
+app.innerHTML=html;
+
+/* legend */
+const legendKeys=['tafsir','hadith','fiqh','quran','aqeedah'];
+const colors={pre:'var(--pre)',tafsir:'var(--tafsir)',hadith:'var(--hadith)',fiqh:'var(--fiqh)',quran:'var(--quran)',aqeedah:'var(--aqeedah)',close:'var(--close)'};
+document.getElementById('legend').innerHTML=legendKeys.map(k=>`<div class="lg"><i style="background:${colors[k]}"></i>${SUB[k]} <span data-sub="${k}"></span></div>`).join('');
+
+/* ---------- update ---------- */
+function update(silent){
+  let total=reg.length,dn=0;
+  const bySub={},byW={};
+  reg.forEach(r=>{
+    const d=!!done[r.id]; if(d)dn++;
+    (bySub[r.s]=bySub[r.s]||[0,0])[1]++; (byW[r.w]=byW[r.w]||[0,0])[1]++;
+    if(d){bySub[r.s][0]++;byW[r.w][0]++;}
+    const el=app.querySelector(`.task[data-id="${r.id}"]`);
+    el.classList.toggle('done',d); el.querySelector('input').checked=d;
+  });
+  app.querySelectorAll('.day').forEach(day=>{
+    const ts=[...day.querySelectorAll('.task')];
+    const all=ts.every(t=>t.classList.contains('done'));
+    day.classList.toggle('complete',all);
+    day.classList.toggle('hasdone',ts.some(t=>t.classList.contains('done')));
+    day.classList.toggle('today',day.dataset.date===todayISO);
+  });
+  document.querySelectorAll('details.week').forEach(el=>{
+    const [a,b]=byW[el.dataset.w]||[0,0];
+    el.querySelector('.wcount').textContent=`${a} / ${b}`;
+    el.querySelector('.wbar').style.width=(b?a/b*100:0)+'%';
+  });
+  document.querySelectorAll('[data-sub]').forEach(el=>{const v=bySub[el.dataset.sub]||[0,0];el.textContent=`${v[0]}/${v[1]}`});
+  const pct=total?Math.round(dn/total*100):0;
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('cnt').textContent=`${dn} / ${total}`;
+  document.getElementById('ringfg').style.strokeDashoffset=326.7*(1-pct/100);
+  const vis=[...app.querySelectorAll('.day')].some(d=>d.offsetParent!==null);
+  document.body.classList.toggle('nothing',!vis);
+  return byW;
+}
+
+let toastT;
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800)}
+
+app.addEventListener('change',e=>{
+  const id=e.target.dataset.id; if(!id)return;
+  const r=reg.find(x=>x.id===id);
+  const was=update(true)[r.w];
+  if(e.target.checked)done[id]=1; else delete done[id];
+  save();
+  const now=update();
+  if(e.target.checked){
+    const [a,b]=now[r.w];
+    if(a===b&&was[0]!==was[1]) toast('ما شاء الله! أتممتِ '+weeks[r.w].title+' 🌟');
+    else if(reg.every(x=>done[x.id])) toast('تبارك الله! أتممتِ المستوى الثاني كاملًا 🎓');
+  }
+});
+
+/* toolbar */
+document.getElementById('seg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x===b));
+  document.body.dataset.f=b.dataset.f;
+  if(b.dataset.f!=='all')document.querySelectorAll('details.week').forEach(d=>d.open=true);
+  setTimeout(()=>update(),0);
+});
+document.getElementById('toggleAll').onclick=()=>{
+  const ds=[...document.querySelectorAll('details.week')];
+  const anyClosed=ds.some(d=>!d.open); ds.forEach(d=>d.open=anyClosed);
+};
+document.getElementById('goToday').onclick=()=>{
+  const el=document.getElementById('day-'+todayISO);
+  if(!el){toast('لا يوجد درس مجدول لليوم');return}
+  el.closest('details').open=true;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+};
+document.getElementById('reset').onclick=()=>{
+  if(confirm('هل تريدين مسح كل علامات الإنجاز والبدء من جديد؟')){done={};save();update();toast('تمت إعادة الضبط')}
+};
+
+/* initial open state: week containing today, else first week with unfinished tasks */
+(function(){
+  const ws=[...document.querySelectorAll('details.week')];
+  const t=document.getElementById('day-'+todayISO);
+  if(t){t.closest('details').open=true;return}
+  let opened=false;
+  ws.forEach((d,i)=>{
+    const unfinished=reg.some(r=>r.w===i&&!done[r.id]);
+    if(!opened&&unfinished){d.open=true;opened=true}
+  });
+  if(!opened)ws[0].open=true;
+})();
+update();
+</script>
+</body>
+</html>
