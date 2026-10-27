@@ -57,7 +57,13 @@ body{font-family:'Tajawal',system-ui,sans-serif;background:
 /* legend */
 .legend{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
 .lg{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:700}
+.lg{font-family:inherit;color:var(--ink);cursor:pointer;transition:.2s}
+.lg:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.lg.on{background:var(--ink);color:#fff}
+.lg.on span{color:#cfe3d4}
 .lg i{width:11px;height:11px;border-radius:50%}
+body[data-sub] .day:not(.sel){opacity:.35}
+body[data-sub] .day.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 45%,transparent)}
 .lg span{color:var(--muted);font-weight:500}
 
 /* weeks */
@@ -287,7 +293,7 @@ app.innerHTML=html;
 /* legend */
 const legendKeys=['tafsir','hadith','fiqh','quran','aqeedah'];
 const colors={pre:'var(--pre)',tafsir:'var(--tafsir)',hadith:'var(--hadith)',fiqh:'var(--fiqh)',quran:'var(--quran)',aqeedah:'var(--aqeedah)',close:'var(--close)'};
-document.getElementById('legend').innerHTML=legendKeys.map(k=>`<div class="lg"><i style="background:${colors[k]}"></i>${SUB[k]} <span data-sub="${k}"></span></div>`).join('');
+document.getElementById('legend').innerHTML=legendKeys.map(k=>`<button type="button" class="lg" data-k="${k}" title="اضغطي للانتقال لبداية المادة"><i style="background:${colors[k]}"></i>${SUB[k]} <span data-sub="${k}"></span></button>`).join('');
 
 /* ---------- update ---------- */
 function update(silent){
@@ -328,15 +334,28 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
 app.addEventListener('change',e=>{
   const id=e.target.dataset.id; if(!id)return;
   const r=reg.find(x=>x.id===id);
-  const was=update(true)[r.w];
+  const wk=reg.filter(x=>x.w===r.w);
+  const wasWeekDone=wk.every(x=>done[x.id]);
   if(e.target.checked)done[id]=1; else delete done[id];
   save();
-  const now=update();
+  update();
   if(e.target.checked){
-    const [a,b]=now[r.w];
-    if(a===b&&was[0]!==was[1]) toast('ما شاء الله! أتممتِ '+weeks[r.w].title+' 🌟');
-    else if(reg.every(x=>done[x.id])) toast('تبارك الله! أتممتِ المستوى الثاني كاملًا 🎓');
+    if(reg.every(x=>done[x.id])) toast('تبارك الله! أتممتِ المستوى الثاني كاملًا 🎓');
+    else if(!wasWeekDone&&wk.every(x=>done[x.id])) toast('ما شاء الله! أتممتِ '+weeks[r.w].title+' 🌟');
   }
+});
+
+/* subject focus: jump to subject start, highlight through its exam */
+document.getElementById('legend').addEventListener('click',e=>{
+  const b=e.target.closest('.lg'); if(!b)return;
+  const k=b.dataset.k, wasOn=b.classList.contains('on');
+  document.querySelectorAll('.lg').forEach(x=>x.classList.remove('on'));
+  app.querySelectorAll('.day').forEach(d=>d.classList.remove('sel'));
+  if(wasOn){delete document.body.dataset.sub;return}
+  const days=[...app.querySelectorAll('.day.s-'+k)]; if(!days.length)return;
+  b.classList.add('on'); document.body.dataset.sub=k;
+  days.forEach(d=>{d.classList.add('sel');d.closest('details').open=true});
+  setTimeout(()=>days[0].scrollIntoView({behavior:'smooth',block:'center'}),50);
 });
 
 /* toolbar */
