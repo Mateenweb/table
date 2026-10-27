@@ -66,6 +66,24 @@ body[data-sub] .day:not(.sel){opacity:.35}
 body[data-sub] .day.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 45%,transparent)}
 .lg span{color:var(--muted);font-weight:500}
 
+.lg.ex{border-color:#f6d3cd;background:#fff6f4;color:var(--red)}
+.lg.ex span{color:var(--red);opacity:.8}
+.lg.ex.on{background:var(--red);color:#fff;border-color:var(--red)}
+.lg.ex.on span{color:#fff}
+.expanel{display:none;margin-top:10px;background:#fff;border:1px solid #f6d3cd;border-radius:20px;padding:10px;box-shadow:var(--shadow);gap:8px}
+.expanel.open{display:grid}
+.exitem{font-family:inherit;display:flex;align-items:center;gap:12px;text-align:right;background:#fff6f4;border:1px solid #f6d3cd;border-radius:14px;padding:8px 12px;cursor:pointer;color:var(--ink);transition:.2s}
+.exitem:hover{background:#fff0ed;border-color:var(--red);transform:translateX(-2px)}
+.exd{flex:none;width:58px;border-radius:12px;background:var(--red);color:#fff;display:flex;flex-direction:column;align-items:center;padding:4px 0;font-size:12px;font-weight:700;line-height:1.2}
+.exd b{font-size:22px;font-weight:800}
+.ext{flex:1;display:flex;flex-direction:column;min-width:0}
+.ext strong{font-size:15px}
+.ext small{font-size:12.5px;color:var(--muted)}
+.exc{flex:none;font-size:12px;font-weight:800;color:var(--red);background:#fde3df;padding:2px 10px;border-radius:99px}
+.exc.past{color:var(--muted);background:#eef2ec}
+.day.flash{animation:fl 1.8s ease}
+@keyframes fl{0%,100%{box-shadow:none}25%,60%{box-shadow:0 0 0 5px rgba(226,87,76,.5)}}
+
 /* weeks */
 details.week{margin-top:18px;background:var(--card);border-radius:24px;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
 details.week>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#fff,#f6faf3)}
@@ -185,6 +203,7 @@ footer b{color:var(--green-d)}
   </div>
 
   <div class="legend" id="legend"></div>
+  <div class="expanel" id="expanel"></div>
   <div id="app"></div>
   <div class="empty">لا يوجد شيء هنا حاليًا ✨</div>
 
@@ -345,9 +364,31 @@ app.addEventListener('change',e=>{
   }
 });
 
+/* exams button + panel */
+(function(){
+  const exams=[];
+  weeks.forEach(w=>w.days.forEach(d=>{if(d.off)return;d.tasks.forEach(t=>{if(t.t==='exam')exams.push({d,t})})}));
+  document.getElementById('legend').insertAdjacentHTML('beforeend',`<button type="button" class="lg ex" id="exBtn">📝 الاختبارات <span>${exams.length}</span></button>`);
+  const panel=document.getElementById('expanel'), btn=document.getElementById('exBtn');
+  const today=new Date(todayISO+'T00:00:00');
+  panel.innerHTML=exams.map(({d,t})=>{
+    const n=Math.round((new Date(d.date+'T00:00:00')-today)/864e5);
+    const c=n<0?'انتهى':n===0?'اليوم':n===1?'غدًا':'بعد '+n+' يوم';
+    return `<button type="button" class="exitem" data-date="${d.date}"><span class="exd"><b>${d.big}</b>${d.mo}</span><span class="ext"><strong>${esc(t.x)}</strong><small>${d.wd} · ${d.h}${t.m?' · '+esc(t.m):''}</small></span><span class="exc ${n<0?'past':''}">${c}</span></button>`;
+  }).join('');
+  btn.onclick=()=>{const o=panel.classList.toggle('open');btn.classList.toggle('on',o)};
+  panel.addEventListener('click',e=>{
+    const it=e.target.closest('.exitem'); if(!it)return;
+    const el=document.getElementById('day-'+it.dataset.date); if(!el)return;
+    el.closest('details').open=true;
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  });
+})();
+
 /* subject focus: jump to subject start, highlight through its exam */
 document.getElementById('legend').addEventListener('click',e=>{
-  const b=e.target.closest('.lg'); if(!b)return;
+  const b=e.target.closest('.lg'); if(!b||b.id==='exBtn')return;
   const k=b.dataset.k, wasOn=b.classList.contains('on');
   document.querySelectorAll('.lg').forEach(x=>x.classList.remove('on'));
   app.querySelectorAll('.day').forEach(d=>d.classList.remove('sel'));
