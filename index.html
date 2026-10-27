@@ -195,8 +195,8 @@ footer b{color:var(--green-d)}
 
 <script>
 /* ---------- helpers to build data ---------- */
-const rec=(x)=>({t:'rec',x}), enr=(x,m)=>({t:'enr',x,m}), live=(x,m)=>({t:'live',x,m}), exam=(x,m)=>({t:'exam',x,m}), prep=(x,m)=>({t:'prep',x,m}), ev=(x,m)=>({t:'ev',x,m});
-const D=(date,wd,big,mo,h,tasks,s)=>({date,wd,big,mo,h,tasks,s});
+const rec=(x)=>{const nums=x.match(/\d+/g)||[];const pre=x.includes('·')?x.split('·')[0].trim():'التفسير';return nums.map(n=>({t:'rec',x:`${pre} · الدرس ${n}`}))}, enr=(x)=>({t:'enr',x}), live=(x,m)=>({t:'live',x,m}), exam=(x,m)=>({t:'exam',x,m}), prep=(x,m)=>({t:'prep',x,m}), ev=(x,m)=>({t:'ev',x,m});
+const D=(date,wd,big,mo,h,tasks,s)=>({date,wd,big,mo,h,tasks:tasks.flat(),s});
 const OFF=(x)=>({off:true,x});
 const SUB={tafsir:'التفسير',hadith:'الحديث',fiqh:'الفقه',aqeedah:'العقيدة',quran:'القرآن',pre:'قبل الانطلاق',close:'الختام'};
 const LIVE10=live('لقاء القرآن المباشر','من 10:30 إلى 12 ظهرًا');
@@ -254,7 +254,7 @@ const weeks=[
 ];
 
 const TYPE={rec:['🎬','مسجّل'],enr:['✨','إثرائية'],live:['🎙️','مباشر'],exam:['📝','اختبار'],prep:['📚','استعداد'],ev:['📌','موعد']};
-const KEY='mateen-l2-progress-v1';
+const KEY='mateen-l2-progress-v2';
 let done={}; try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}};
 const todayISO=new Date().toLocaleDateString('en-CA');
